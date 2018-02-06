@@ -1,2 +1,0 @@
-CACHE FOLDER FOR TEMPLATES
-==========================
