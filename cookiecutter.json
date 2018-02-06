@@ -1,9 +1,6 @@
 {
-    "project_name": "Gatekeeper",
-    "project_path": "{{cookiecutter.project_path}}",
-    "app_name": "gk_deploy",
+    "directory_name": "Gatekeeper",
     "ServerAdmin": "info@bg.de",
-    "LoginHost": "sso.bg.de",
-    "url": "extranet.bg.de",
+    "uri": "extranet.bg.de",
     "secret": "hansegonklaus"
 }
