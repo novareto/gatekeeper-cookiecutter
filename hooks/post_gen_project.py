@@ -26,4 +26,4 @@ def create_rsa_pair(pvt_path, pub_path):
             fd.write(pubkey.exportKey('PEM'))
 
 
-def create_rsa_keys('apache', 'apache')
+print create_rsa_keys('apache', 'apache')
