@@ -1,11 +1,11 @@
 from os import path
 
-import pdb; pdb.set_trace()
 
-CC = '{{cookiecutter}}'
+CC = '{{cookiecutter.directory_name}}'
 
 
 def create_rsa_pair(pvt_path, pub_path):
+    import pdb; pdb.set_trace()
     from Crypto.PublicKey import RSA
 
     priv = path.isfile(pvt_path)
