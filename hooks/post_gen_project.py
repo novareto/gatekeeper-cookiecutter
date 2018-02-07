@@ -1,7 +1,7 @@
 from os import path
 
 
-CC = cookiecutter
+CC = '{{cookiecutter}}'
 
 
 def create_rsa_pair(pvt_path, pub_path):
