@@ -1,3 +1,5 @@
+from os import path
+
 def create_rsa_pair(pvt_path, pub_path):
     import pdb; pdb.set_trace()
     from Crypto.PublicKey import RSA
@@ -26,4 +28,4 @@ def create_rsa_pair(pvt_path, pub_path):
             fd.write(pubkey.exportKey('PEM'))
 
 
-print create_rsa_keys('apache', 'apache')
+print create_rsa_pair('apache', 'apache')
