@@ -1,5 +1,9 @@
 from os import path
 
+
+CC = cookiecutter
+
+
 def create_rsa_pair(pvt_path, pub_path):
     import pdb; pdb.set_trace()
     from Crypto.PublicKey import RSA
