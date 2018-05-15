@@ -35,13 +35,19 @@ LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\" %D %>D B
   
   <Proxy http://127.0.0.1:8080/*>
     AuthType mod_auth_pubtkt
-    TKTAuthLoginURL https://testasd.kuvb.de/login
-    TKTAuthTimeoutURL https://testasd-weblogin.kuvb.de/?timeout=1
-    TKTAuthUnauthURL https://testasd-weblogin.kuvb.de/?unauth=1
+    TKTAuthLoginURL   https://${config:conf-global-uri}/login
+    TKTAuthTimeoutURL https://${config:conf-global-uri}/?timeout=1
+    TKTAuthUnauthURL  https://${config:conf-global-uri}/?unauth=1
     TKTAuthDebug 0
     TKTAuthFakeBasicAuth on
     TKTAuthPassthruBasicAuth on
     TKTAuthPassthruBasicKey TMUMd7Vf40rXHDyL
     require valid-user
   </Proxy>
+
+  RewriteEngine on
+  RewriteCond %{REQUEST_URI} !^/login*
+  RewriteCond %{REQUEST_URI} !^/static/*
+  #RewriteRule ^(/?.*) http://127.0.0.1:8080/portal/++vh++https:testasd.kuvb.de:443/++$1 [P]
+
 </VirtualHost>
