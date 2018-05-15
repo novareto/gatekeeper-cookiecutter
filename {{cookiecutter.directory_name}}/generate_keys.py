@@ -1,7 +1,7 @@
 #!./bin/python
 # -*- coding: utf-8 -*-
 
-from loader import Configuration
+from app import Configuration
 
 
 with Configuration('config.json') as config:
