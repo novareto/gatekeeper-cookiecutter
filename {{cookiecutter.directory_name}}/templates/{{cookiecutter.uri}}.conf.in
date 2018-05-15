@@ -5,33 +5,33 @@ LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\" %D %>D B
 <IfModule mod_ssl.c>
 
 <VirtualHost *:443>
-  ServerAdmin team-web@bg-verkehr.de
-  ServerName testasd.kuvb.de
+  ServerAdmin ${config:conf-global-admin} 
+  ServerName ${config:conf-global-uri} 
   LogLevel debug ssl:info
-  ErrorLog /tmp/asd_apache.log
-  CustomLog /var/log/apache2/testasd.kuvb.de_access.log combined_ls
+  ErrorLog  /var/log/apache2/${config:conf-global-uri}_error.log
+  CustomLog /var/log/apache2/${config:conf-global-uri}_access.log combined_ls
 
   SSLEngine on
   SSLCertificateFile /etc/apache2/cert/kuvb.de.crt
   SSLCACertificateFile /etc/apache2/cert/kuvb.de-ca.crt
   SSLCertificateKeyFile /etc/apache2/cert/kuvb.de.key
 
-  TKTAuthPublicKey cert/extranet.kuvb.de_pubkey.pem
-  WSGIDaemonProcess gatekeeper1 user=uv group=uv threads=1
-  WSGIProcessGroup gatekeeper1
+  TKTAuthPublicKey ${buildout:directory}/etc/pubkey.pem
+  WSGIDaemonProcess gatekeeper user=uv group=uv threads=1
+  WSGIProcessGroup gatekeeper
 
   <Directory "${buildout:directory}">
-    WSGIProcessGroup gatekeeper1
+    WSGIProcessGroup gatekeeper
     WSGIApplicationGroup %{GLOBAL}
     Require all granted
-
   </Directory>
+
   <Location "/static/">
     Options -Indexes
   </Location>
   
-  Alias /static/ /home/uv/CromGate/static/
-  WSGIScriptAlias /login /home/uv/CromGate/app.py
+  Alias /static/ ${buildout:directory}/static/
+  WSGIScriptAlias /login ${buildout:directory}/app.py
   
   <Proxy http://127.0.0.1:8080/*>
     AuthType mod_auth_pubtkt
