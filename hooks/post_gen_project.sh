@@ -1,8 +1,8 @@
 #!/bin/bash
 
 python3.6 -m venv .
-.bin/pip install -r requirements.txt
-.bin/pip install -e .
+./bin/pip install -r requirements.txt
+./bin/pip install -e .
 ./bin/pip install zc.buildout==2.11.3
 ./bin/buildout
 ./bin/python generate_keys.py
