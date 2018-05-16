@@ -21,3 +21,4 @@ polib
 pycryptodome
 rutter
 transaction
+zc.buildout==2.11.3
