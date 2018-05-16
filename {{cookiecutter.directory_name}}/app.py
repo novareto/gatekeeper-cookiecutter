@@ -70,6 +70,7 @@ with Configuration('config.json') as config:
         'login', root=loginroot), None, config['crypto']['cipher'])
     mapping['/unauthorized'] = serve_view('unauthorized', root=loginroot)
     mapping['/timeout'] = serve_view('timeout', root=loginroot)
+    mapping['/logout'] = serve_view('logout', root=loginroot)
 
     # Middlewares wrapping if needed
     application = mapping
