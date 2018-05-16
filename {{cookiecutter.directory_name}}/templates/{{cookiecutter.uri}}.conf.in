@@ -16,7 +16,7 @@ LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\" %D %>D B
   SSLCertificateKeyFile /etc/apache2/cert/kuvb.de.key
 
   TKTAuthPublicKey ${buildout:directory}/etc/pubkey.pem
-  WSGIDaemonProcess gatekeeper user=uv group=uv threads=1
+  WSGIDaemonProcess gatekeeper user=teamweb group=teamweb threads=1 home=${buildout:directory}
   WSGIProcessGroup gatekeeper
 
   <Directory "${buildout:directory}">
