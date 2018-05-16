@@ -3,6 +3,6 @@
     "ServerAdmin": "info@bg.de",
     "uri": "extranet.bg.de",
     "secret": "hansegonklaus",
-    "ip-adresse": "0.0.0.0",
-    "user-gruppe": ""
+    "public_ip": "0.0.0.0",
+    "user_gruppe": ""
 }
