@@ -2,5 +2,7 @@
     "directory_name": "Gatekeeper",
     "ServerAdmin": "info@bg.de",
     "uri": "extranet.bg.de",
-    "secret": "hansegonklaus"
+    "secret": "hansegonklaus",
+    "ip-adresse": "0.0.0.0",
+    "user-gruppe": ""
 }

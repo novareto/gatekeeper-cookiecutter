@@ -18,7 +18,7 @@ class Login(BaseLoginForm):
     template = tal_template('form.pt')
 
     def back(self, login):
-        return "https://testasd.kuvb.de"
+        return "https://${config:conf-global-uri}"
 
     @property
     def action_url(self):
