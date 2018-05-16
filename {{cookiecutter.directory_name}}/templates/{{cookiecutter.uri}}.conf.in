@@ -1,4 +1,3 @@
-LoadModule wsgi_module "${buildout:directory}/lib/python3.5/site-packages/mod_wsgi/server/mod_wsgi-py34.cpython-34m.so"
 WSGIPythonHome "${buildout:directory}"
 
 LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\" %D %>D BGHW" combined_ls
@@ -33,7 +32,7 @@ LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\" %D %>D B
   Alias /static/ ${buildout:directory}/static/
   WSGIScriptAlias /login ${buildout:directory}/app.py
   
-  <Proxy http://127.0.0.1:8080/*>
+  <Proxy http://HOST_PORT/*>
     AuthType mod_auth_pubtkt
     TKTAuthLoginURL   https://${config:conf-global-uri}/login
     TKTAuthTimeoutURL https://${config:conf-global-uri}/?timeout=1
@@ -48,6 +47,9 @@ LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\" %D %>D B
   RewriteEngine on
   RewriteCond %{REQUEST_URI} !^/login*
   RewriteCond %{REQUEST_URI} !^/static/*
-  #RewriteRule ^(/?.*) http://127.0.0.1:8080/portal/++vh++https:testasd.kuvb.de:443/++$1 [P]
+  # GROK
+  # RewriteRule ^(/?.*) http://HOST_PORT/portal/++vh++https:${config:conf-global-uri}:443/++$1 [P]
+  # PLONE
+  # RewriteRule ^(/?.*) http://HOST_PORT/VirtualHostBase/https/${config:conf-global-uri}:443/vergabe/VirtualHostRoot/$1 [P]
 
 </VirtualHost>
