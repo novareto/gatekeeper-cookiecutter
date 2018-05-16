@@ -29,7 +29,7 @@ LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\" %D %>D B
     Options -Indexes
   </Location>
   
-  Alias /static/ ${buildout:directory}/static/
+  Alias /static/ ${buildout:directory}/keeper/static/
   WSGIScriptAlias /login ${buildout:directory}/app.py
   
   <Proxy http://HOST_PORT/*>
