@@ -4,5 +4,6 @@
     "uri": "extranet.bg.de",
     "secret": "hansegonklaus",
     "public_ip": "0.0.0.0",
-    "deamon_user": ""
+    "deamon_user": "",
+    "domain": ""
 }

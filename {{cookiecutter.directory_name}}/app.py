@@ -52,12 +52,14 @@ with Configuration('config.json') as config:
 
     class LoginRoot(LoginRoot):
 
-        def __init__(self, pubkey, dest):
+        def __init__(self, domain, pubkey, dest):
+            self.domain = domain
             self.pkey = pubkey
             self.dest = dest
 
     # Login
     loginroot = LoginRoot(
+        config['global']['domain'],
         config['crypto']['privkey'],
         config['global']['dest'],
     )
