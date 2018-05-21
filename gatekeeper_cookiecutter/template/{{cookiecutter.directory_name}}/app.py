@@ -1,78 +1,81 @@
-#!./bin/python
-# -*- coding: utf-8 -*-
-
 import os
 import sys
 import json
+import crom
+import dolmen.tales
+import gatekeeper
+import keeper
+import grokker, dolmen.view, dolmen.forms.base, dolmen.forms.ztk
+
+from cromlech.auth import BasicAuth
+from cromlech.sqlalchemy import create_engine
+from dolmen.forms.ztk.fields import registerDefault
+from gatekeeper import serve_view
+from gatekeeper.admin import Messages, messager
+from gatekeeper.login.models import LoginRoot
+from gatekeeper.ticket import cipher
+from rutter.urlmap import URLMap
 
 
-class Configuration(object):
+# Grokking
+crom.monkey.incompat()
+crom.implicit.initialize()
+registerDefault()
 
-    def __init__(self, filename):
-        if not os.path.isfile(filename):
-            raise RuntimeError('Configuration file does not exist.')
-        self.environ = filename
-
-    def __enter__(self):
-        with open(self.environ, "r") as fd:
-            env = json.load(fd)
-        return env['conf']
-
-    def __exit__(self, exc_type, exc_val, exc_tb):
-        pass
+crom.configure(
+    dolmen.forms.base,
+    dolmen.forms.ztk,
+    dolmen.tales,
+    dolmen.view,
+    keeper,
+    gatekeeper,
+    grokker
+)
 
 
-with Configuration('config.json') as config:
+# Configuration
+CONF = 'config.json'
+auth_users = {
+    'admin': 'admin',
+}
 
-    import crom
-    import dolmen.tales
-    import gatekeeper
-    import keeper
-    import grokker, dolmen.view, dolmen.forms.base, dolmen.forms.ztk
-    from dolmen.forms.ztk.fields import registerDefault
-    from gatekeeper.ticket import cipher
+if not os.path.isfile(CONF):
+    raise RuntimeError('Configuration file does not exist.')
 
-    crom.monkey.incompat()
-    crom.implicit.initialize()
-    registerDefault()
+with open(CONF, "r") as fd:
+    config = json.load(fd)
 
-    crom.configure(
-        dolmen.forms.base,
-        dolmen.forms.ztk,
-        dolmen.tales,
-        dolmen.view,
-        keeper,
-        gatekeeper,
-        grokker,
-    )
 
-    from gatekeeper import serve_view
-    from gatekeeper.login.models import LoginRoot
-    from rutter.urlmap import URLMap
+# Database
+engine = create_engine(config['db']['uri'], config['db']['key'])
+engine.bind(Messages)
+Messages.metadata.create_all()
 
-    class LoginRoot(LoginRoot):
 
-        def __init__(self, domain, pubkey, dest):
-            self.domain = domain
-            self.pkey = pubkey
-            self.dest = dest
+# Login
+class LoginRoot(LoginRoot):
+    
+    def __init__(self, domain, pubkey, dest):
+        self.domain = domain
+        self.pkey = pubkey
+        self.dest = dest
 
-    # Login
-    loginroot = LoginRoot(
-        config['global']['domain'],
-        config['crypto']['privkey'],
-        config['global']['dest'],
-    )
+loginroot = LoginRoot(
+    config['global']['domain'],
+    config['crypto']['privkey'],
+    config['global']['dest'],
+)
 
-    # The application.
-    mapping = URLMap()
-    mapping['/'] = cipher(serve_view(
-        'login', root=loginroot), None, config['crypto']['cipher'])
-    mapping['/unauthorized'] = serve_view('unauthorized', root=loginroot)
-    mapping['/timeout'] = serve_view('timeout', root=loginroot)
-    mapping['/logout'] = serve_view('logout', root=loginroot)
+# The application.
+mapping = URLMap()
+mapping['/'] = cipher(serve_view(
+    'login', root=loginroot), None, config['crypto']['cipher'])
+mapping['/unauthorized'] = serve_view('unauthorized', root=loginroot)
+mapping['/timeout'] = serve_view('timeout', root=loginroot)
+mapping['/logout'] = serve_view('logout', root=loginroot)
+mapping['/admin'] = BasicAuth(messager(engine), auth_users)
 
-    # Middlewares wrapping if needed
-    application = mapping
+# Middlewares wrapping if needed
+application = mapping
 
-    print(application, "Application is ready.")
+print(application, "Application is ready.")
