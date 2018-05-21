@@ -1,9 +1,11 @@
-#!./bin/python
-# -*- coding: utf-8 -*-
+import os
+import json
+from keeper import create_rsa_pair
 
-from app import Configuration
+if not os.path.isfile(CONF):
+    raise RuntimeError('Configuration file does not exist.')
 
-
-with Configuration('config.json') as config:
-    from keeper import create_rsa_pair
-    create_rsa_pair(config['crypto']['privkey'], config['crypto']['pubkey'])
+with open(CONF, "r") as fd:
+    config = json.load(fd)
+    
+create_rsa_pair(config['crypto']['privkey'], config['crypto']['pubkey'])
