@@ -13,13 +13,20 @@ setup(name='gatekeeper_cookiecutter',
       author_email='',
       url='',
       license='',
-      package_dir = {'': 'gatekeeper_cookiecutter'},
       include_package_data=True,
       zip_safe=False,
+      packages=find_packages('src'),
+      package_dir={'': 'src'},
+      package_data={
+        'gatekeeper_cookiecutter': ['template'],
+      },
       install_requires=[
+          "wheel",
           "cookiecutter",
       ],
       entry_points = {
-          'console_scripts': ['gatekeeper-cookiecutter=gatekeeper_cookiecutter.deploy:main'],
+          'console_scripts': [
+              'generate=gatekeeper_cookiecutter.deploy:generate'
+          ],
       }
 )
