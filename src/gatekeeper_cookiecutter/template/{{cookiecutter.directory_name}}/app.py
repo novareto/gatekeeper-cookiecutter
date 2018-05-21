@@ -6,16 +6,7 @@ import dolmen.tales
 import gatekeeper
 import keeper
 import grokker, dolmen.view, dolmen.forms.base, dolmen.forms.ztk
-
-from cromlech.auth import BasicAuth
-from cromlech.sqlalchemy import create_engine
 from dolmen.forms.ztk.fields import registerDefault
-from gatekeeper import serve_view
-from gatekeeper.admin import Messages, messager
-from gatekeeper.login.models import LoginRoot
-from gatekeeper.ticket import cipher
-from rutter.urlmap import URLMap
-
 
 # Grokking
 crom.monkey.incompat()
@@ -47,12 +38,17 @@ with open(CONF, "r") as fd:
 
 
 # Database
+from gatekeeper.admin import Messages
+from cromlech.sqlalchemy import create_engine
+
 engine = create_engine(config['db']['uri'], config['db']['key'])
 engine.bind(Messages)
 Messages.metadata.create_all()
 
 
 # Login
+from gatekeeper.login.models import LoginRoot
+
 class LoginRoot(LoginRoot):
     
     def __init__(self, domain, pubkey, dest):
@@ -67,6 +63,13 @@ loginroot = LoginRoot(
 )
 
 # The application.
+from cromlech.auth import BasicAuth
+from gatekeeper import serve_view
+from gatekeeper.admin import messager
+from gatekeeper.ticket import cipher
+from rutter.urlmap import URLMap
+
+
 mapping = URLMap()
 mapping['/'] = cipher(serve_view(
     'login', root=loginroot), None, config['crypto']['cipher'])

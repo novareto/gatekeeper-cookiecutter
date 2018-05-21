@@ -1,5 +1,4 @@
 git+https://github.com/Cromlech/crom.git#egg=crom
-git+https://github.com/Cromlech/cromlech.auth.git#egg=cromlech.auth
 git+https://github.com/Cromlech/cromlech.browser.git#egg=cromlech.browser
 git+https://github.com/Cromlech/cromlech.content.git#egg=cromlech.content
 git+https://github.com/Cromlech/cromlech.dawnlight.git#egg=cromlech.dawnlight
@@ -16,9 +15,9 @@ git+https://github.com/Cromlech/dolmen.tales.git#egg=dolmen.tales
 git+https://github.com/Cromlech/dolmen.template.git#egg=dolmen.template
 git+https://github.com/Cromlech/dolmen.view.git#egg=dolmen.view
 git+https://github.com/Cromlech/dolmen.viewlet.git#egg=dolmen.viewlet
-git+https://github.com/Cromlech/dolmen.sqlcontainer.git#egg=dolmen.sqlcontainer
 git+https://github.com/Cromlech/grokker.git#egg=grokker
-
+git+https://github.com/Cromlech/cromlech.auth.git#egg=cromlech.auth
+git+https://github.com/Cromlech/dolmen.sqlcontainer.git#egg=dolmen.sqlcontainer
 -e git+https://github.com/novareto/gatekeeper.git@crom#egg=gatekeeper
 
 fanstatic
