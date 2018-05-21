@@ -73,7 +73,7 @@ mapping['/'] = cipher(serve_view(
 mapping['/unauthorized'] = serve_view('unauthorized', root=loginroot)
 mapping['/timeout'] = serve_view('timeout', root=loginroot)
 mapping['/logout'] = serve_view('logout', root=loginroot)
-mapping['/admin'] = BasicAuth(messager(engine), auth_users)
+mapping['/admin'] = BasicAuth(auth_users)(messager(engine))
 
 # Middlewares wrapping if needed
 application = mapping
