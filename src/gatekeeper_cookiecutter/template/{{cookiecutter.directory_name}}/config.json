@@ -1,12 +1,8 @@
 {
-    "paths": [
-        "{{cookiecutter.fullpath}}/{{cookiecutter.directory_name}}/lib/python3.6/site-packages"
-    ],
-    "conf": {
-        "db": {
-            "uri": "sqlite:////{{cookiecutter.fullpath}}/{{cookiecutter.directory_name}}/var/admin.db",
-            "key": "admin_db"
-        },
+    "db": {
+        "uri": "sqlite:////{{cookiecutter.fullpath}}/{{cookiecutter.directory_name}}/var/admin.db",
+        "key": "admin_db"
+    },
         "global": {
             "domain": "{{cookiecutter.domain}}",
             "admin": "{{cookiecutter.ServerAdmin}}",
@@ -15,14 +11,13 @@
             "ip": "{{cookiecutter.public_ip}}",
             "user_gruppe": "{{cookiecutter.deamon_user}}"
         },
-        "session": {
-            "path": "{{cookiecutter.fullpath}}/{{cookiecutter.directory_name}}/var/cache/sessions",
-            "timeout": "300"
-        },
-        "crypto": {
-            "pubkey": "{{cookiecutter.fullpath}}/{{cookiecutter.directory_name}}/etc/pubkey.pem",
-            "privkey": "{{cookiecutter.fullpath}}/{{cookiecutter.directory_name}}/etc/privkey.pem",
-            "cipher": "{{cookiecutter.secret}}"
-        }
+    "session": {
+        "path": "{{cookiecutter.fullpath}}/{{cookiecutter.directory_name}}/var/cache/sessions",
+        "timeout": "300"
+    },
+    "crypto": {
+        "pubkey": "{{cookiecutter.fullpath}}/{{cookiecutter.directory_name}}/etc/pubkey.pem",
+        "privkey": "{{cookiecutter.fullpath}}/{{cookiecutter.directory_name}}/etc/privkey.pem",
+        "cipher": "{{cookiecutter.secret}}"
     }
 }

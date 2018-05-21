@@ -18,7 +18,6 @@ git+https://github.com/Cromlech/dolmen.view.git#egg=dolmen.view
 git+https://github.com/Cromlech/dolmen.viewlet.git#egg=dolmen.viewlet
 git+https://github.com/Cromlech/dolmen.sqlcontainer.git#egg=dolmen.sqlcontainer
 git+https://github.com/Cromlech/grokker.git#egg=grokker
-git+https://github.com/trollfot/dolmen.recipe.jsonenv.git#egg=dolmen.recipe.jsonenv
 
 -e git+https://github.com/novareto/gatekeeper.git@crom#egg=gatekeeper
 
