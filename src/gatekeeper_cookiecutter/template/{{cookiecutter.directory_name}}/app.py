@@ -50,13 +50,17 @@ Messages.metadata.create_all()
 from gatekeeper.login.models import LoginRoot
 
 class LoginRoot(LoginRoot):
-    
-    def __init__(self, domain, pubkey, dest):
+    displayMessages = True
+
+    def __init__(self, engine, domain, pubkey, dest):
+        self.engine = engine
         self.domain = domain
         self.pkey = pubkey
         self.dest = dest
 
+
 loginroot = LoginRoot(
+    engine,
     config['global']['domain'],
     config['crypto']['privkey'],
     config['global']['dest'],
