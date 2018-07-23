@@ -1,6 +1,6 @@
 {
     "db": {
-        "uri": "sqlite:////{{cookiecutter.fullpath}}/{{cookiecutter.directory_name}}/admin.db",
+        "uri": "sqlite:///{{cookiecutter.fullpath}}/{{cookiecutter.directory_name}}/admin.db",
         "key": "admin_db"
     },
     "global": {
